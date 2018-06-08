@@ -58,6 +58,26 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  
+  function playSound (e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    //we can capture an element's attribute/value with square brackets. We can dig even deeper into the values by using template literals; mind===blown
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    key.classList.add('playing');
+    if(!audio) return; //use this to effectively 'cancel' undesired running of your code
+    audio.currentTime = 0; // the key to getting the audio to play from the beginning with every press (rather than delaying until the last play is complete) is setting the 'currentTime' to zero
+    audio.play();
+  };
+
+  function removeTransition(e) {
+    //when a function is passed, we have access to all of the bundled methods and properties of the event. This is a deep concept that give you a lot of power
+    if (e.propertyName !== 'transform') return;
+    this.classList.remove('playing'); //here we're referencing 'this', which is a reference to the object it was called in connection to. In this case, if you trace it back to what this function was called with, it's the 'key' (see line 79)
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound); //this tripped me up  bit. We're listening to the entire window for a 'keydown' event, rather than a specific element. Once that occurs, we're parsing the info from there (above. Really, starting with row 63 on)
 
 </script>
 
