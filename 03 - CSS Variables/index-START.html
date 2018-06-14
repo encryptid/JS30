@@ -64,16 +64,11 @@
     const inputs = document.querySelectorAll('.controls input');
     
     function handleUpdate() {
-      // console.log(this);
-      // console.log(this.value);
-      // let root = document.querySelector(':root');
-      // console.log(root.style);
-      const suffix = this.dataset.sizing;
-      console.log(suffix);
-      let val = 
-      suffix = `${this.value} px`;
-      // suffix.value = this.value;
-      // console.log(suffix.value);
+      //console.log(this); //refers to whatever item is being affected by the event listener
+      console.log(this.value);//returns the value of whichever item is being impacted
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+      //document.documentElement is a reference to the "document",html, or "root" element. So we're setting the style of the entire document (as we did in the CSS in the first place) and essentially overwriting it with whatever the current value is, based on the feedback from the sliders and color selector. We do this with the "setProperty()" method, which accepts two parameters:( 1. the property, 2. the value ). We pass the name in, preceeded by dashes, followed by the value with "suffix" appended to it to get a useable format. This essentially overwrites the existing property value.
     }
 
     inputs.forEach(input => input.addEventListener('change', handleUpdate));
