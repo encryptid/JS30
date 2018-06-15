@@ -30,16 +30,32 @@
     const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
 
     // Array.prototype.filter()
+    //Filter creates a test; if the item run thru the filter method passes the test, it is returned. Otherwise, nothing is returned
     // 1. Filter the list of inventors for those who were born in the 1500's
+    
+    const filtro = inventors.filter(inv => inv.year >= 1500 && inv.year <= 1599);
+    console.log(filtro);
 
     // Array.prototype.map()
+    //Map creates a NEW array with the results of calling a function on each item of an array (you provide the function).
     // 2. Give us an array of the inventors' first and last names
+    
+    const mapped = inventors.map(inv => `${inv.first} ${inv.last}`);
+    console.log(mapped);
 
     // Array.prototype.sort()
+    //'Sort' sorts the elements of an array in place and returns the array. Default sort is Unicode.
     // 3. Sort the inventors by birthdate, oldest to youngest
+    
+    const births = inventors.sort((a,b) => a.year - b.year);
+    console.log(births);
 
     // Array.prototype.reduce()
+    // Reduce applies a function against an accumulator (or tally) and each element in the array to reduce it to a single value
     // 4. How many years did all the inventors live?
+
+    const totalBirths = inventors.reduce(inv => inv.passed - inv.year);
+    console.log(totalBirths);
 
     // 5. Sort the inventors by years lived
 
