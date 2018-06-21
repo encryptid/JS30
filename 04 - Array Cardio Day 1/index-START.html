@@ -53,8 +53,10 @@
     // Array.prototype.reduce()
     // Reduce applies a function against an accumulator (or tally) and each element in the array to reduce it to a single value
     // 4. How many years did all the inventors live?
-
-    const totalBirths = inventors.reduce(inv => inv.passed - inv.year);
+    const years = inventors.map(inv => inv.passed - inv.year);
+    const reducerator = (acc, sv) => acc + sv;
+    // acc = accumulator, sv = starting value; so we're creating a function that takes an 'accumulator' or number to be added to, and a starting value and adding them together.
+    const totalBirths = years.reduce(reducerator, 0);
     console.log(totalBirths);
 
     // 5. Sort the inventors by years lived
