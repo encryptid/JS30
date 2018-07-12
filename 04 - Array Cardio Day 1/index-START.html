@@ -48,25 +48,72 @@
     // 3. Sort the inventors by birthdate, oldest to youngest
     
     const births = inventors.sort((a,b) => a.year - b.year);
-    console.log(births);
+    console.table(births);
 
     // Array.prototype.reduce()
     // Reduce applies a function against an accumulator (or tally) and each element in the array to reduce it to a single value
     // 4. How many years did all the inventors live?
+    //Syntax: arr.reduce(callback[, initialValue])
+    //if no initialValue is supplied, the first element in the array will be used
+    
+    //My solution:
     const years = inventors.map(inv => inv.passed - inv.year);
     const reducerator = (acc, sv) => acc + sv;
     // acc = accumulator, sv = starting value; so we're creating a function that takes an 'accumulator' or number to be added to, and a starting value and adding them together.
+
     const totalBirths = years.reduce(reducerator, 0);
     console.log(totalBirths);
 
+    //Wes' solution:
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0);
+    console.log(totalYears);
+
+    //the main difference is that I offloaded the "accumulator" process onto 
+    //a separate 'map' function (a la functional programming) and Wes'
+    //solution does the accumulation within the reduce function, which is
+    //cleaner.
+
     // 5. Sort the inventors by years lived
+
+    /*My terrible attempt:
+
+     const lifespan = inventors.map(inv => {
+      inv.passed - inv.year;
+      return inv;
+      });
+    console.log(lifespan);
+    const lifeSorter = lifespan.sort((first, second) => first.age - second.age);
+    console.table(lifeSorter); */
+
+    //Wes' solution:
+    const oldest = inventors.sort(function(first, second) {
+      const last = first.passed - first.year;
+      const next = second.passed - second.year;
+      return next - last;
+    });
+  //I did modify it by excluding the ternary expression, which seems to have no impact
+  //on the result, as I did with the other .sort() example
+  console.log(oldest);
+    console.table(oldest);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    // This is performed by entering the following into the console at the above listed
+    //Wikipedia page.
+
+    const links = Array.from(document.querySelectorAll('.mw-category a'));
+    const de = links
+                    .map(link => link.textContent)
+                    .filter(streetName => streetName.includes('de'));
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+
+    const muhPeeps = inventors.sort((a,b) => a.last - b.last);
+    console.table(muhPeeps);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
